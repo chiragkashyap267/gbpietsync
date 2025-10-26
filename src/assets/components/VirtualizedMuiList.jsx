@@ -11,7 +11,7 @@ import { app } from "../../Firebase";
 import { useClassContext } from "./ClassContext";
 
 // Import the new CSS file
-import "./StudentList.css";
+import "../components/StudentList.css";
 
 // --- LOADER COMPONENT ---
 const ListLoader = () => (
