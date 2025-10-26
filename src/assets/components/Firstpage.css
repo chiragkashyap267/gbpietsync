@@ -1,0 +1,13 @@
+.outer{
+  background-color: #bad8e2;
+  width: 90vw;
+  height: 90vh;
+  margin: auto;
+  margin-top: 2rem;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  flex-direction: column;
+}

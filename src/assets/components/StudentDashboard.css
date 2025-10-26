@@ -1,0 +1,32 @@
+.stouter{
+    display: flex;
+    height: 90vh;
+    width: 90vw;
+    flex-direction: column;
+    background-color: #bad8e2;
+    border-radius: 20px;
+    margin: auto;
+    margin-top: 2rem;
+}
+
+.containerstudent{
+    display: flex;
+    padding: 2rem;
+    gap: 2rem;
+}
+
+.rightside{
+    width: 30vw;
+    border: 2px solid #437f97;
+    border-radius: 20px;
+    height: 80vh;
+    padding: 2rem;
+}
+
+.leftside{
+    width: 60vw;
+    border: 2px solid #437f97;
+    border-radius: 20px;
+    height: 80vh;
+    padding: 2rem;
+}

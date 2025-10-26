@@ -1,0 +1,17 @@
+.form-container{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    height: 80vh;
+    width: 30vw;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+}
+
+.outer{
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+
+}
