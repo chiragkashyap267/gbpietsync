@@ -1,0 +1,138 @@
+/* Container and Empty State */
+.accordion-container {
+  margin-top: 2rem;
+}
+
+.no-classes-message {
+  color: #666;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+/* List of classes inside the accordion */
+.class-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+/* Individual Class Item */
+.class-item {
+  border-radius: 6px;
+  border: 1px solid #ffffff;
+  overflow: hidden;
+  transition: background-color 0.2s ease-in-out;
+  
+  /* Unselected State */
+  background-color: #5a8fa8;
+}
+
+/* Selected State */
+.class-item.selected {
+  background-color: #ffffff;
+}
+
+/* Clickable Class Info Button */
+.class-item-button {
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  padding: 0.8rem;
+  cursor: pointer;
+  text-align: left;
+  transition: color 0.2s ease-in-out;
+
+  /* Unselected State */
+  color: #ffffff;
+  font-weight: 400;
+}
+
+/* Selected State */
+.class-item.selected .class-item-button {
+  color: #437f97;
+  font-weight: 600;
+}
+
+.class-item-name {
+  font-size: 1rem;
+  margin-bottom: 0.3rem;
+}
+
+.class-item-details {
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
+/* --- Action Buttons Container --- */
+.class-item-actions {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.5rem 0.8rem;
+
+  /* Border (Unselected) */
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+
+  /* --- MOBILE FIRST (Default) --- */
+  flex-direction: column;
+}
+
+/* Border (Selected) */
+.class-item.selected .class-item-actions {
+  border-top: 1px solid #e0e0e0;
+}
+
+/* Base styles for all action buttons */
+.class-action-btn {
+  border: none;
+  padding: 0.6rem 0.8rem; /* A bit more padding for easier tapping */
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  
+  /* --- MOBILE FIRST (Default) --- */
+  width: 100%; /* Make buttons full-width on mobile */
+}
+
+.class-action-btn:hover {
+  opacity: 0.85;
+}
+
+/* Specific button colors */
+.btn-mark {
+  background-color: #27ae60;
+  color: #fff;
+}
+.btn-analyze {
+  background-color: #3498db;
+  color: #fff;
+}
+.btn-delete {
+  background-color: #e74c3c;
+  color: #fff;
+}
+
+
+/* --- MEDIA QUERY FOR DESKTOP --- */
+/* On screens 600px wide or larger */
+@media (min-width: 600px) {
+  
+  .class-item-actions {
+    /* Switch back to horizontal layout */
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .class-action-btn {
+    /* Allow buttons to size to their content */
+    width: auto;
+    padding: 0.5rem 0.8rem; /* Revert padding */
+  }
+
+  /* Make "Mark Attendance" take remaining space */
+  .btn-mark {
+    flex: 1;
+    text-align: center; /* Center text since it's flexible */
+  }
+}

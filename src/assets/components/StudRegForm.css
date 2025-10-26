@@ -1,0 +1,20 @@
+/* This class will replace your 'inputPairStyle' object */
+.input-pair {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+}
+
+/* This class will replace 'halfInputStyle' */
+.half-input {
+  flex: 1;
+  min-width: 0; /* Important for flex-shrink */
+}
+
+/* --- THE RESPONSIVE MAGIC --- */
+@media (max-width: 600px) {
+  /* When screen is small, stack the inputs */
+  .input-pair {
+    flex-direction: column;
+  }
+}

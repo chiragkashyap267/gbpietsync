@@ -19,6 +19,7 @@
 
 .leftSide {
   flex: 1;
+  min-width: 280px;
 }
 
 .rightSide {
@@ -29,6 +30,7 @@
 .rightSide h4 {
   margin-top: 0;
   color: #437f97;
+  font-size: 1.25rem;
 }
 
 /* === MODAL OVERLAY === */
@@ -44,17 +46,21 @@
   align-items: center;
   z-index: 1000;
   animation: fadeIn 0.2s ease-in-out;
+  padding: 1rem; /* Add padding for mobile */
+  overflow-y: auto; /* Allow scrolling if content is tall */
 }
 
 /* === MODAL BOX === */
 .modal-content {
   background: white;
-  padding: 2rem;
+  padding: 1.5rem;
   border-radius: 12px;
-  min-width: 450px;
+  width: 100%;
   max-width: 500px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
   animation: slideIn 0.3s ease-out;
+  max-height: 90vh; /* Prevent modal from being too tall */
+  overflow-y: auto; /* Allow internal scrolling */
 }
 
 @keyframes slideIn {
@@ -93,7 +99,7 @@
 .modal-content input[type="text"],
 .modal-content input[type="date"] {
   width: 100%;
-  padding: 0.6rem;
+  padding: 0.75rem; /* Increased from 0.6rem for better touch */
   border: 1px solid #ddd;
   border-radius: 6px;
   font-size: 1rem;
@@ -101,6 +107,7 @@
   box-sizing: border-box;
   outline: none;
   transition: border-color 0.2s, box-shadow 0.2s;
+  min-height: 48px; /* Minimum touch target size */
 }
 
 .form-control:focus,
@@ -117,68 +124,452 @@
 
 /* === BUTTONS === */
 .modal-content button {
-  padding: 0.6rem 1.5rem;
+  padding: 0.75rem 1.5rem; /* Increased padding */
   border: none;
   border-radius: 6px;
   font-weight: 600;
   cursor: pointer;
   font-size: 1rem;
   transition: all 0.2s;
-  margin-right: 0.5rem;
+  min-height: 48px; /* Touch-friendly height */
+  min-width: 80px;
 }
 
-.modal-content button:hover {
+.modal-content button:hover:not(:disabled) {
   opacity: 0.9;
   transform: translateY(-1px);
 }
 
-.modal-content button:active {
+.modal-content button:active:not(:disabled) {
   transform: translateY(0);
+}
+
+.modal-content button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 /* Primary buttons */
 .modal-content button[type="submit"],
-.modal-content button:not([type]) {
+.modal-content button:not([type]):not(.cancel-btn) {
   background-color: #437f97;
   color: white;
 }
 
 .modal-content button[type="submit"]:hover,
-.modal-content button:not([type]):hover {
+.modal-content button:not([type]):not(.cancel-btn):hover {
   background-color: #356b81;
 }
 
 /* Cancel buttons */
-.modal-content button[type="button"] {
+.modal-content button[type="button"],
+.cancel-btn {
   background-color: #e0e0e0;
   color: #333;
 }
 
-.modal-content button[type="button"]:hover {
+.modal-content button[type="button"]:hover,
+.cancel-btn:hover {
   background-color: #ccc;
 }
 
-/* === TABLES (For Analyze Attendance) === */
+/* === TABLES === */
 .modal-content table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 1rem;
+  font-size: 0.9rem;
 }
 
 .modal-content th,
 .modal-content td {
-  padding: 0.6rem;
+  padding: 0.75rem 0.5rem;
   border: 1px solid #ddd;
   text-align: center;
-  font-size: 0.9rem;
 }
 
 .modal-content th {
   background-color: #437f97;
   color: white;
   font-weight: 600;
+  white-space: nowrap;
 }
 
 .modal-content tr:nth-child(even) {
   background-color: #f9f9f9;
+}
+
+/* Table wrapper for horizontal scroll */
+.table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  margin: 1rem 0;
+}
+
+/* === STUDENT LIST CONTAINER === */
+.student-list-container {
+  max-height: 400px;
+  overflow-y: auto;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  -webkit-overflow-scrolling: touch;
+}
+
+.student-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #eee;
+  gap: 1rem;
+}
+
+.student-info {
+  flex: 1;
+  min-width: 0; /* Allow text to wrap */
+}
+
+.student-info-name {
+  font-weight: 600;
+  font-size: 1rem;
+  word-break: break-word;
+}
+
+.student-info-id {
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 0.25rem;
+}
+
+.student-button-group {
+  display: flex;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+/* Attendance status buttons (Present/Absent/Leave) */
+.student-button-group button {
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  min-height: 44px; /* Touch-friendly */
+  transition: all 0.2s;
+}
+
+/* === LOADING SPINNERS === */
+.dashboard-loader-small,
+.dashboard-loader-large {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #437f97;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.dashboard-loader-small {
+  width: 40px;
+  height: 40px;
+}
+
+.dashboard-loader-large {
+  width: 60px;
+  height: 60px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ============================================
+   MOBILE RESPONSIVE STYLES
+   ============================================ */
+
+/* Tablets and smaller (768px and below) */
+@media (max-width: 768px) {
+  .dashboard {
+    padding: 1rem;
+  }
+
+  /* Stack dashboard columns */
+  .dashBoardOuter {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .leftSide,
+  .rightSide {
+    padding: 1.25rem;
+    min-width: 0;
+  }
+
+  /* Modal takes more screen space on tablets */
+  .modal-content {
+    max-width: 90%;
+    padding: 1.25rem;
+  }
+
+  .modal-content h3 {
+    font-size: 1.35rem;
+  }
+
+  /* Make table horizontally scrollable */
+  .modal-content > div:has(table) {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .modal-content table {
+    min-width: 600px; /* Force horizontal scroll for wide tables */
+  }
+}
+
+/* Mobile devices (576px and below) */
+@media (max-width: 576px) {
+  .dashboard {
+    padding: 0.75rem;
+  }
+
+  /* Full-width modal on mobile */
+  .modal-overlay {
+    padding: 0.5rem;
+    align-items: flex-start; /* Align to top for better UX */
+  }
+
+  .modal-content {
+    max-width: 100%;
+    width: 100%;
+    padding: 1rem;
+    margin: 0.5rem 0;
+    border-radius: 8px;
+    max-height: 95vh;
+  }
+
+  .modal-content h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .modal-content p {
+    font-size: 0.9rem;
+  }
+
+  /* Larger form inputs for mobile */
+  .form-control,
+  .modal-content select,
+  .modal-content input[type="text"],
+  .modal-content input[type="date"] {
+    font-size: 16px; /* Prevents zoom on iOS */
+    padding: 0.85rem;
+    min-height: 50px;
+  }
+
+  /* Stack student row vertically */
+  .student-row {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.875rem;
+    gap: 0.75rem;
+  }
+
+  .student-info {
+    width: 100%;
+  }
+
+  /* Make button group full width and wrap */
+  .student-button-group {
+    width: 100%;
+    justify-content: space-between;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .student-button-group button {
+    flex: 1;
+    min-width: 90px; /* Ensure buttons don't get too small */
+    padding: 0.75rem 0.5rem;
+    font-size: 0.95rem;
+    min-height: 48px;
+  }
+
+  /* Stack modal action buttons */
+  .modal-content > div:last-child {
+    display: flex;
+    flex-direction: column-reverse; /* Primary button on top */
+    gap: 0.75rem;
+  }
+
+  .modal-content > div:last-child button {
+    width: 100%;
+    margin: 0;
+  }
+
+  /* Reduce student list height on mobile */
+  .student-list-container {
+    max-height: 50vh;
+  }
+
+  /* Analysis date inputs - better mobile layout */
+  .modal-content > div:has(input[type="date"]) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: stretch;
+  }
+
+  .modal-content > div:has(input[type="date"]) input,
+  .modal-content > div:has(input[type="date"]) button {
+    width: 100%;
+    margin: 0;
+  }
+
+  .modal-content > div:has(input[type="date"]) span {
+    text-align: center;
+    font-size: 0.9rem;
+  }
+
+  /* Table horizontal scroll on mobile */
+  .modal-content table {
+    font-size: 0.85rem;
+    min-width: 650px;
+  }
+
+  .modal-content th,
+  .modal-content td {
+    padding: 0.6rem 0.4rem;
+    font-size: 0.8rem;
+  }
+
+  /* Smaller text in right sidebar */
+  .leftSide h4,
+  .rightSide h4 {
+    font-size: 1.1rem;
+  }
+}
+
+/* Extra small devices (400px and below) */
+@media (max-width: 400px) {
+  .dashboard {
+    padding: 0.5rem;
+  }
+
+  .leftSide,
+  .rightSide {
+    padding: 1rem;
+  }
+
+  .modal-content {
+    padding: 0.875rem;
+  }
+
+  .modal-content h3 {
+    font-size: 1.15rem;
+  }
+
+  .student-button-group button {
+    min-width: 80px;
+    font-size: 0.85rem;
+    padding: 0.7rem 0.4rem;
+  }
+
+  .modal-content button {
+    font-size: 0.95rem;
+    padding: 0.7rem 1.25rem;
+  }
+}
+
+/* Landscape mode for phones */
+@media (max-width: 896px) and (orientation: landscape) {
+  .modal-overlay {
+    align-items: flex-start;
+  }
+
+  .modal-content {
+    max-height: 85vh;
+    margin: 1rem auto;
+  }
+
+  .student-list-container {
+    max-height: 40vh;
+  }
+}
+/* --- Dashboard Header --- */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #437f97;
+  color: #fff;
+  padding: 1rem 1.2rem; /* Increased padding for mobile */
+  border-radius: 8px;
+  margin-bottom: 1rem;
+
+  /* MOBILE-FIRST: Stack vertically by default */
+  flex-direction: column;
+  gap: 1rem; /* Add space between stacked items */
+}
+
+.dashboard-greeting {
+  margin: 0;
+  font-size: 1.5rem; /* Make greeting a bit larger */
+  text-align: center; /* Center on mobile */
+}
+
+.dashboard-header-actions {
+  display: flex;
+  gap: 0.6rem;
+  width: 100%; /* Make button container full-width */
+
+  /* MOBILE-FIRST: Stack buttons by default */
+  flex-direction: column;
+}
+
+.header-btn {
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  padding: 0.75rem 0.8rem; /* Taller buttons for mobile */
+  border-radius: 6px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  font-size: 0.9rem;
+}
+
+.header-btn:hover {
+  opacity: 0.9;
+}
+
+.btn-add-class {
+  background-color: #27ae60;
+}
+
+.btn-logout {
+  background-color: #e74c3c;
+}
+
+/* --- MEDIA QUERY FOR DESKTOP --- */
+/* On screens 600px wide or larger */
+@media (min-width: 600px) {
+  .dashboard-header {
+    /* Go back to horizontal layout */
+    flex-direction: row;
+    padding: 0.8rem 1.2rem; /* Revert padding */
+  }
+
+  .dashboard-greeting {
+    text-align: left; /* Align left on desktop */
+  }
+
+  .dashboard-header-actions {
+    /* Put buttons back in a row */
+    flex-direction: row;
+    width: auto; /* Let it size to content */
+  }
+
+  .header-btn {
+    padding: 0.4rem 0.8rem; /* Revert padding */
+  }
 }

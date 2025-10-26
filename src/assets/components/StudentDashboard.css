@@ -30,3 +30,94 @@
     height: 80vh;
     padding: 2rem;
 }
+.stouter {
+  background: #356b81;
+  min-height: 100vh;
+  padding: 1.5rem; /* Original padding */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.dashboard-container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* --- Header --- */
+.student-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 1rem;
+}
+
+/* --- Profile Info --- */
+.profile-info-container {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap; /* You already had this, which is good! */
+  align-items: center;
+  background: #fafafa;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.profile-pic-container {
+  /* Your styles for the pic container are fine */
+  flex: 0 0 120px;
+  /* ... */
+}
+
+.profile-details {
+  flex: 1 1 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+}
+
+/* --- Attendance Grid --- */
+.attendance-grid {
+  display: grid;
+  /* This is already responsive! Great job. */
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+
+/* --- THE RESPONSIVE MAGIC --- */
+@media (max-width: 600px) {
+  .stouter {
+    padding: 0.5rem; /* Less padding on small screens */
+  }
+
+  .dashboard-container {
+    padding: 1rem;
+  }
+
+  /* Stack header on mobile */
+  .student-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  /* Center the profile info and stack it */
+  .profile-info-container {
+    flex-direction: column; /* Stack pic and details */
+  }
+
+  .profile-details {
+    align-items: center; /* Center the text */
+  }
+  .profile-details p {
+    text-align: center;
+  }
+}

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getDatabase, ref, set } from "firebase/database";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import "./StudRegForm.css"; // Assuming you have some CSS for styling
 
 // --- Firebase Initialization ---
 // Get config from the global variable (this part is fine if __firebase_config is set)

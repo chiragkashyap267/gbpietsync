@@ -1,13 +1,27 @@
-.outer{
-  background-color: #bad8e2;
-  width: 90vw;
-  height: 90vh;
-  margin: auto;
-  margin-top: 2rem;
-  border-radius: 20px;
+/* Make .outer take up the full screen and center content */
+.outer {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 2rem;
-  flex-direction: column;
+  min-height: 100vh;
+  padding: 1.5rem;
+  text-align: center;
+  gap: 1.5rem; /* Adds spacing between elements */
+}
+
+.outer img {
+  width: 13rem;
+  max-width: 100%; /* Ensure image doesn't overflow */
+}
+
+/* Make buttons a reasonable size */
+.outer .btn {
+  width: 100%;
+  max-width: 300px; /* Stop them from being too wide */
+  font-size: 1.1rem;
+}
+
+.outer p {
+  color: #333; /* Just giving it some style */
 }
