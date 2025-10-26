@@ -245,20 +245,20 @@ function StudRegForm() {
 
           {/* ROW 3: Name and DOB */}
           <div style={inputPairStyle}>
-            <input className="form-control" placeholder="Enter your name" value={name} onChange={handleInputChange(setName)} required style={halfInputStyle} /> {/* ✅ Use generic handler */}
+            <input className="form-control" placeholder="name" value={name} onChange={handleInputChange(setName)} required style={halfInputStyle} /> {/* ✅ Use generic handler */}
             <input type="date" className="form-control" value={dob} onChange={handleInputChange(setDob)} required style={halfInputStyle} /> {/* ✅ Use generic handler */}
           </div>
 
           {/* ROW 4: Email and Password */}
           <div style={inputPairStyle}>
-            <input className="form-control" placeholder="Enter your email" type="email" value={email} onChange={handleEmailChange} required style={halfInputStyle} />
-            <input className="form-control" placeholder="Enter your password" type="password" value={password} onChange={handlePasswordChange} required style={halfInputStyle} />
+            <input className="form-control" placeholder="email" type="email" value={email} onChange={handleEmailChange} required style={halfInputStyle} />
+            <input className="form-control" placeholder="password" type="password" value={password} onChange={handlePasswordChange} required style={halfInputStyle} />
           </div>
 
           {/* ROW 5: Student ID and Contact Number */}
           <div style={inputPairStyle}>
             <input className="form-control" placeholder="Student ID" value={instituteID} onChange={handleInputChange(setInstituteID)} required style={halfInputStyle} /> {/* ✅ Use generic handler */}
-            <input className="form-control" type="tel" placeholder="Enter contact number" value={contactNumber} onChange={handleInputChange(setContactNumber)} required style={halfInputStyle} /> {/* ✅ Use generic handler */}
+            <input className="form-control" type="tel" placeholder="contact number" value={contactNumber} onChange={handleInputChange(setContactNumber)} required style={halfInputStyle} /> {/* ✅ Use generic handler */}
           </div>
 
           <button type="submit" disabled={loading || successMessage} className="btn btn-seconda" // ✅ Disable button if showing success message
