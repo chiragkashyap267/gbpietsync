@@ -573,3 +573,149 @@
     padding: 0.4rem 0.8rem; /* Revert padding */
   }
 }
+
+/* ---------- Attendance Buttons (visuals & spacing) ---------- */
+
+.attendance-button-group,
+.attendance-button-group > * {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Container spacing — ensures gap between status buttons */
+.attendance-button-group {
+  gap: 0.5rem;
+  padding-left: 0.4rem;
+}
+
+/* Base button */
+.attendance-status-btn {
+  border: none;
+  padding: 0.45rem 0.8rem;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  min-width: 84px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
+  color: #fff;
+  background: rgba(0,0,0,0.06);
+  box-shadow: none;
+  outline: none;
+}
+
+/* Hover / focus */
+.attendance-status-btn:hover,
+.attendance-status-btn:focus {
+  transform: translateY(-2px);
+  opacity: 0.96;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+}
+
+/* Specific colors (unselected subtle versions) */
+.btn-present { background-color: rgba(39,174,96,0.95); }   /* green */
+.btn-absent  { background-color: rgba(231,76,60,0.95); }   /* red */
+.btn-leave   { background-color: rgba(241,196,15,0.95); color: #222; } /* yellow/dark text */
+
+/* Inactive look: soften opacity so active can stand out */
+.attendance-status-btn:not(.active) {
+  filter: grayscale(0.03) brightness(0.98);
+  opacity: 0.9;
+}
+
+/* Active state: stronger highlight and border */
+.attendance-status-btn.active {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+  border: 2px solid rgba(255,255,255,0.25);
+  opacity: 1;
+}
+
+/* When active, adjust text color for yellow background */
+.attendance-status-btn.active.btn-leave { color: #111; }
+
+/* Make them responsive: stack on very small widths */
+@media (max-width: 420px) {
+  .attendance-button-group {
+    gap: 0.45rem;
+    flex-wrap: wrap;
+  }
+  .attendance-status-btn { min-width: 72px; padding: 0.5rem; font-size: 0.92rem; }
+}
+/* ======= FIXED: Attendance buttons color and spacing ======= */
+.attendance-button-group {
+  display: flex;
+  gap: 0.7rem;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 0.4rem;
+}
+
+/* base style */
+.attendance-status-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-color: #5a8fa8; /* default blue (unselected) */
+  color: white;
+}
+
+/* highlight active ones */
+.attendance-status-btn.active.btn-present {
+  background-color: #27ae60 !important; /* green */
+}
+.attendance-status-btn.active.btn-absent {
+  background-color: #e74c3c !important; /* red */
+}
+.attendance-status-btn.active.btn-leave {
+  background-color: #f1c40f !important; /* yellow */
+  color: #222;
+}
+
+/* hover effect */
+.attendance-status-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+/* ======= FIXED: Modal footer buttons (Cancel / Submit) spacing ======= */
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.75rem;       /* adds spacing between buttons */
+  margin-top: 1rem;   /* space above buttons */
+}
+
+.modal-actions .btn-cancel,
+.modal-actions .btn-submit {
+  min-width: 120px;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.modal-actions .btn-cancel {
+  background-color: #e0e0e0;
+  color: #333;
+}
+.modal-actions .btn-submit {
+  background-color: #437f97;
+  color: white;
+}
+
+/* responsive stacking on small screens */
+@media (max-width: 600px) {
+  .modal-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .modal-actions button {
+    width: 100%;
+  }
+}

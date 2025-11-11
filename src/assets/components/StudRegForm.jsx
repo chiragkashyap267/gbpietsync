@@ -245,8 +245,8 @@ function StudRegForm() {
 
           {/* ROW 3: Name and DOB */}
           <div style={inputPairStyle}>
-            <input className="form-control" placeholder="name" value={name} onChange={handleInputChange(setName)} required style={halfInputStyle} /> {/* ✅ Use generic handler */}
-            <input type="date" className="form-control" value={dob} onChange={handleInputChange(setDob)} required style={halfInputStyle} /> {/* ✅ Use generic handler */}
+            <input className="form-control" placeholder="name  DOB =>" value={name} onChange={handleInputChange(setName)} required style={halfInputStyle} /> {/* ✅ Use generic handler */}
+            <input type="date" placeholder="DOB" className="form-control" value={dob} onChange={handleInputChange(setDob)} required style={halfInputStyle} /> {/* ✅ Use generic handler */}
           </div>
 
           {/* ROW 4: Email and Password */}

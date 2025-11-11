@@ -1,10 +1,11 @@
+// Dashboard.jsx
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import "./Dashboard.css"; // ✅ Your main CSS file
 import SimpleAccordion from "./SimpleAccordion";
 import VirtualizedMuiList from "./VirtualizedMuiList";
 import { ClassProvider } from "./ClassContext";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import {
   getDatabase,
@@ -172,7 +173,6 @@ export default function Dashboard() {
   };
 
   // ✅ --- FIXED Delete Class Handler ---
-  // Now only requires classId, as provided by SimpleAccordion
   const handleDeleteClass = (classId) => {
     if (
       !classId ||
@@ -267,9 +267,17 @@ export default function Dashboard() {
   };
 
   // Attendance Marking
-  const handleAttendanceChange = (studentId, status) => {
-    setAttendanceData((prev) => ({ ...prev, [studentId]: status }));
-  };
+  const handleAttendanceChange = useCallback((studentId, status) => {
+  setAttendanceData((prev) => {
+    const current = prev[studentId];
+    // If clicked status is same as current, clear it (toggle off).
+    // Otherwise set to the newly clicked status.
+    const newStatus = current === status ? null : status;
+    return { ...prev, [studentId]: newStatus };
+  });
+}, []);
+
+
   const submitAttendance = () => {
     if (!selectedClass || students.length === 0) {
       console.warn("Cannot submit attendance.");
@@ -508,6 +516,33 @@ export default function Dashboard() {
     }
   };
 
+  // --- Local AttendanceButtons sub-component (keeps parent code tidy) ---
+  function AttendanceButtons({ studentId, currentStatus, onChange }) {
+    // currentStatus comes from attendanceData[student.id]
+    const statuses = ["present", "absent", "leave"];
+    return (
+      <div className="attendance-button-group" onClick={(e) => e.stopPropagation()}>
+        {statuses.map((status) => (
+          <button
+            key={status}
+            onClick={(e) => {
+              e.stopPropagation();
+              // Toggle behaviour: clicking same status will re-set it to that value (you can change to toggle-off if you want)
+              onChange(studentId, status);
+            }}
+            className={`attendance-status-btn btn-${status} ${
+              currentStatus === status ? "active" : ""
+            }`}
+            aria-pressed={currentStatus === status}
+            title={`Mark ${status}`}
+          >
+            {status.charAt(0).toUpperCase() + status.slice(1)}
+          </button>
+        ))}
+      </div>
+    );
+  }
+
   // --- Render ---
   if (isAuthLoading) return <FullPageLoader />;
 
@@ -533,9 +568,7 @@ export default function Dashboard() {
         </div>
 
         {/* Display Login Error if passed via state */}
-        {loginError && (
-          <div className="login-error-message">{loginError}</div>
-        )}
+        {loginError && <div className="login-error-message">{loginError}</div>}
 
         {/* ADD CLASS MODAL */}
         {showForm && (
@@ -641,23 +674,13 @@ export default function Dashboard() {
                           Institute ID: {student.instituteID}
                         </div>
                       </div>
-                      <div className="attendance-button-group">
-                        {["present", "absent", "leave"].map((status) => (
-                          <button
-                            key={status}
-                            onClick={() =>
-                              handleAttendanceChange(student.id, status)
-                            }
-                            className={`attendance-status-btn btn-${status} ${
-                              attendanceData[student.id] === status
-                                ? "active"
-                                : ""
-                            }`}
-                          >
-                            {status.charAt(0).toUpperCase() + status.slice(1)}
-                          </button>
-                        ))}
-                      </div>
+
+                      {/* Use the new AttendanceButtons component */}
+                      <AttendanceButtons
+                        studentId={student.id}
+                        currentStatus={attendanceData[student.id]}
+                        onChange={handleAttendanceChange}
+                      />
                     </div>
                   ))
                 ) : (
